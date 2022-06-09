@@ -22,6 +22,13 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // password validation
+  let hasEightChar = password.length >= 8;
+  let hasLowerChar = /(.*[a-z].*)/.test(password);
+  let hasUpperChar = /(.*[A-Z].*)/.test(password);
+  let hasNumber = /(.*[0-9].*)/.test(password);
+  let hasSymbol = /(.*[^a-zA-Z0-9].*)/.test(password);
+
   return (
     <div className="container mt-5 mb-5 col-10 col-sm-8 col-md-6 col-lg-5">
       <div className="text-center mb-5 alert alert-primary">
@@ -81,6 +88,36 @@ const Signup = () => {
             }
           />
         </FormControl>
+        {/* validation to show password validator warnings only if password is entered */}
+        {password && (
+          <div className="ml-1" style={{ columns: 2 }}>
+            <div>
+              <small className={hasEightChar ? "text-success" : "text-danger"}>
+                at least 8 characters
+              </small>
+            </div>
+            <div>
+              <small className={hasLowerChar ? "text-success" : "text-danger"}>
+                at least 1 lowercase character
+              </small>
+            </div>
+            <div>
+              <small className={hasUpperChar ? "text-success" : "text-danger"}>
+                at least 1 uppercase character
+              </small>
+            </div>
+            <div>
+              <small className={hasNumber ? "text-success" : "text-danger"}>
+                at least 1 number
+              </small>
+            </div>
+            <div>
+              <small className={hasSymbol ? "text-success" : "text-danger"}>
+                at least 1 symbol
+              </small>
+            </div>
+          </div>
+        )}
       </div>
       <div className="form-group">
         <TextField
@@ -108,7 +145,20 @@ const Signup = () => {
       </div>
       <div className="text-center mt-4">
         {/* With value and onChange set in textfield for email and outlinedinput for password, submit will now enable or disable based on if the above fields are filled or not. */}
-        <Button variant="contained" disabled={!email || !password}>
+        <Button
+          variant="contained"
+          disabled={
+            !email ||
+            !password ||
+            !username ||
+            !confirmPassword ||
+            password !== confirmPassword ||
+            !hasEightChar ||
+            !hasLowerChar ||
+            !hasNumber ||
+            !hasSymbol
+          }
+        >
           Submit
         </Button>
       </div>
