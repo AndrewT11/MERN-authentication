@@ -1,10 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const morgan = require("morgan");
-const cors = require("cors");
+const morgan = require("morgan"); // HTTP request logger middleware for node.js
+const cors = require("cors"); // package providing a Connect/Express Middleware that can be used to enable CORS w/ various options
 const cookieParser = require("cookie-parser");
-const expressValidator = require("express-validator");
-require("dotenv").config();
+// const expressValidator = require("express-validator"); // express middleware that wraps validator.js validator and sanitize functions
+require("dotenv").config(); // needed for environment variables to be served from .env file
 
 const db = require("./config/connection");
 
@@ -16,10 +15,10 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
-app.use(expressValidator());
+// app.use(expressValidator());
 
-const userRoutes = require("./routes/user");
-app.use("/", userRoutes);
+// const userRoutes = require("./routes/user");
+// app.use("/", userRoutes);
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === "production") {
@@ -33,7 +32,7 @@ app.get("*", (req, res) => {
 db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
-    // log where we can go to test our GQL API
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    // log where we can go to test our GQL API. GQL will not be connected on this project.
+    // console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
