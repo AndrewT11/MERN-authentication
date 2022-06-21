@@ -13,6 +13,7 @@ in head: Bootstrap CSS
     npm install @mui/material @emotion/react @emotion/styled
     npm install @mui/icons-material
     npm i react-router-dom --save
+    npm i nodemon
 
     bootstrap navbar
 
