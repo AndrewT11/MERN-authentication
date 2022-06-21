@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const uuid = require("uudiv1");
+const uuid = require("uuidv1");
 const crypto = require("crypto");
 const { stringify } = require("querystring");
 

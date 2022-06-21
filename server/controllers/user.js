@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const User = require("../models/user")
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     //check to see if user already exists
     const usernameExists = await User.findOne({
         username: req.body.username
@@ -24,7 +24,7 @@ exports.register = (req, res) => {
     let newUser = new User(req.body);
     await newUser.save();
 
-    res.stats(201).json(
+    res.status(201).json({
         message: "Signup Successful. Please login to proceed."
-    )
+    })
 }
